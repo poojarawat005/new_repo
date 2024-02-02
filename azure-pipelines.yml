@@ -10,13 +10,26 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: AzureResourceManagerTemplateDeployment@3
+# #- task: AzureResourceManagerTemplateDeployment@3
+#   inputs:
+#     deploymentScope: 'Subscription'
+#     azureResourceManagerConnection: 'She_hustler(6f70cfed-66c2-42e6-a0ef-64e1a7e0527f)'
+#     subscriptionId: '6f70cfed-66c2-42e6-a0ef-64e1a7e0527f'
+#     location: 'East US'
+#     templateLocation: 'Linked artifact'
+#     csmFile: 'Linuxtemplate.json'
+#     csmParametersFile: 'Linuxparameters.json'
+# #    deploymentMode: 'Incremental'
+- task: AzureImageBuilderTask@1
   inputs:
-    deploymentScope: 'Subscription'
-    azureResourceManagerConnection: 'She_hustler(6f70cfed-66c2-42e6-a0ef-64e1a7e0527f)'
-    subscriptionId: '6f70cfed-66c2-42e6-a0ef-64e1a7e0527f'
-    location: 'East US'
-    templateLocation: 'Linked artifact'
-    csmFile: 'Linuxtemplate.json'
-    csmParametersFile: 'Linuxparameters.json'
-    deploymentMode: 'Incremental'
+    managedIdentity: '/subscriptions/6f70cfed-66c2-42e6-a0ef-64e1a7e0527f/resourceGroups/Avengers/providers/Microsoft.ManagedIdentity/userAssignedIdentities/AIBDeploy'
+    imageSource: 'marketplace'
+    baseImagePubOfferSku: 'Redhat:RHEL:92-gen2'
+    storageAccountName: 'avengersdisks802'
+    distributeType: 'sig'
+    galleryImageId: '/subscriptions/6f70cfed-66c2-42e6-a0ef-64e1a7e0527f/resourcegroups/Avengers/providers/Microsoft.Compute/galleries/TestImageGalleryAmar/images/LinuxYashiTest'
+    replicationRegions: 'eastus'
+    ibSubscription: 'She_hustler(6f70cfed-66c2-42e6-a0ef-64e1a7e0527f)'
+    ibAzureResourceGroup: 'Avengers'
+    ibLocation: 'eastus'
+    vmSize: 'Standard_DS3_v2'
