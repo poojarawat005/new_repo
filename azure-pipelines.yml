@@ -1,0 +1,22 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Subscription'
+    azureResourceManagerConnection: 'She_hustler(6f70cfed-66c2-42e6-a0ef-64e1a7e0527f)'
+    subscriptionId: '6f70cfed-66c2-42e6-a0ef-64e1a7e0527f'
+    location: 'East US'
+    templateLocation: 'Linked artifact'
+    csmFile: 'Linuxtemplate.json'
+    csmParametersFile: 'Linuxparameters.json'
+    deploymentMode: 'Incremental'
